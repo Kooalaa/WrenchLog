@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.wrenchlog.ui.theme.WrenchLogTheme
@@ -19,12 +20,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WrenchLogTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                val repository = remember {
+                    VehicleRepository()
                 }
+
+                val vehicles = remember {
+                    repository.getVehicles()
+                }
+
+                GarageScreen(
+                    vehicles = vehicles
+                )
             }
         }
     }
