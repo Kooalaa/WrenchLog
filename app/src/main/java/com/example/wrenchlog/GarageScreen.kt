@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GarageScreen(
-    vehicles: List<Vehicle>
+    vehicles: List<Vehicle>,
+    onAddVehicle: (Vehicle) -> Unit
 ) {
     Scaffold(
         topBar = {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -15,21 +16,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.wrenchlog.ui.theme.WrenchLogTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: GarageViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             WrenchLogTheme {
-                val repository = remember {
-                    VehicleRepository()
-                }
-
-                val vehicles = remember {
-                    repository.getVehicles()
-                }
-
                 GarageScreen(
-                    vehicles = vehicles
+                    vehicles = viewModel.vehicles,
+                    onAddVehicle = viewModel::addVehicle
                 )
             }
         }
